@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Diamantes Gratis - Free Fire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        h1, h2 {
+            font-family: 'Anton', sans-serif;
+            letter-spacing: 1px;
+        }
+        .fire-text {
+            color: #ff9900;
+            text-shadow: 0 0 10px rgba(255, 153, 0, 0.7);
+        }
+        /* Animación de carga */
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #ff9900;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex items-center justify-center p-4">
+
+    <!-- Contenedor Principal -->
+    <div id="mainCard" class="bg-gray-900 bg-opacity-90 p-8 rounded-xl shadow-2xl max-w-md w-full border-t-4 border-yellow-500">
+        
+        <!-- Sección del Formulario -->
+        <div id="formContainer">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl uppercase fire-text mb-2">Generador de Diamantes</h1>
+                <p class="text-gray-400 text-sm">Obtén miles de diamantes gratis para tu cuenta en segundos.</p>
+            </div>
+
+            <form id="trollForm" class="space-y-5">
+                <!-- Campo ID -->
+                <div>
+                    <label for="ff_id" class="block text-sm font-bold text-gray-300 mb-1">ID de Jugador</label>
+                    <input type="text" id="ff_id" required placeholder="Ej: 123456789" 
+                           class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors">
+                </div>
+
+                <!-- Campo Región -->
+                <div>
+                    <label for="region" class="block text-sm font-bold text-gray-300 mb-1">Región</label>
+                    <select id="region" required 
+                            class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors">
+                        <option value="" disabled selected>Selecciona tu región...</option>
+                        <option value="sa">América del Sur (SA)</option>
+                        <option value="na">América del Norte (NA)</option>
+                        <option value="eu">Europa (EU)</option>
+                        <option value="asia">Asia</option>
+                        <option value="eeuu">Estados Unidos</option>
+                    </select>
+                </div>
+
+                <!-- Campo Diamantes -->
+                <div>
+                    <label for="diamonds" class="block text-sm font-bold text-gray-300 mb-1">Cantidad de Diamantes</label>
+                    <select id="diamonds" required 
+                            class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors">
+                        <option value="" disabled selected>Selecciona una cantidad...</option>
+                        <option value="1000">💎 1,000 Diamantes</option>
+                        <option value="5000">💎 5,000 Diamantes</option>
+                        <option value="10000">💎 10,000 Diamantes</option>
+                        <option value="50000">💎 50,000 Diamantes (VIP)</option>
+                        <option value="99999">💎 99,999 Diamantes (MAX)</option>
+                    </select>
+                </div>
+
+                <!-- Botón de Submit -->
+                <button type="submit" 
+                        class="w-full mt-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-bold py-4 px-4 rounded shadow-lg transform transition hover:scale-105 uppercase tracking-wider text-lg">
+                    Reclamar Diamantes
+                </button>
+            </form>
+            
+            <p class="text-xs text-gray-500 text-center mt-4">
+                * Sistema 100% anti-ban. No requiere contraseña.
+            </p>
+        </div>
+
+        <!-- Sección de Carga (Falsa) -->
+        <div id="loadingContainer" class="hidden text-center py-10">
+            <div class="loader mb-6"></div>
+            <h2 class="text-2xl fire-text mb-2">Conectando al servidor...</h2>
+            <p id="loadingText" class="text-gray-300">Buscando ID de jugador...</p>
+        </div>
+
+        <!-- Sección del Rickroll -->
+        <div id="trollContainer" class="hidden text-center">
+            <h2 class="text-3xl text-red-500 font-bold mb-4 uppercase">¡CAÍSTE EN LA TRAMPA! 🤣</h2>
+            <p class="text-lg text-gray-300 mb-6">Nunca te daremos diamantes, pero nunca te abandonaremos...</p>
+            
+            <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
+                <!-- Se inserta el iframe de YouTube aquí mediante JS -->
+                <iframe id="rickrollVideo" class="absolute top-0 left-0 w-full h-full" 
+                        title="Rickroll" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            
+            <button onclick="location.reload()" 
+                    class="mt-6 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors w-full">
+                Volver a intentarlo (Es broma, no funciona)
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('trollForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+
+            const formContainer = document.getElementById('formContainer');
+            const loadingContainer = document.getElementById('loadingContainer');
+            const trollContainer = document.getElementById('trollContainer');
+            const loadingText = document.getElementById('loadingText');
+            const rickrollVideo = document.getElementById('rickrollVideo');
+
+            // Ocultar formulario, mostrar carga
+            formContainer.classList.add('hidden');
+            loadingContainer.classList.remove('hidden');
+
+            // Secuencia de carga falsa para dar suspenso
+            setTimeout(() => {
+                loadingText.innerText = "Inyectando diamantes en la región seleccionada...";
+            }, 1500);
+
+            setTimeout(() => {
+                loadingText.innerText = "Bypaseando seguridad de Garena...";
+            }, 3000);
+
+            setTimeout(() => {
+                loadingText.innerText = "¡Éxito! Verificando recompensas...";
+            }, 4500);
+
+            // Mostrar el Troll
+            setTimeout(() => {
+                loadingContainer.classList.add('hidden');
+                trollContainer.classList.remove('hidden');
+                
+                // Agregamos la URL del video con autoplay justo al final para evitar restricciones del navegador
+                // Nota: Los navegadores suelen mutear el autoplay, por eso dejamos los controles habilitados
+                rickrollVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+            }, 6000); // Tarda 6 segundos en total la broma
+        });
+    </script>
+</body>
+</html>
+
+```
